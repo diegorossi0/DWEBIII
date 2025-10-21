@@ -15,7 +15,7 @@ class tarefasController extends Controller
 
     public function store(Request $request)
     {
-        $item = Tarefa::create($request);
+        $item = Tarefa::create($request->all());
         return response()->json($item, 201);
     }
 

@@ -15,7 +15,7 @@ class categoriasController extends Controller
 
     public function store(Request $request)
     {
-        $item = Categoria::create($request);
+        $item = Categoria::create($request->all());
         return response()->json($item, 201);
     }
 

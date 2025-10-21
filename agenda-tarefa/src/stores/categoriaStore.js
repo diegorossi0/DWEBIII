@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import api from '@/plugins/axios'
 
 export const useCategoriaStore =
 defineStore('categoria', {
@@ -8,10 +9,10 @@ defineStore('categoria', {
     actions: {
         async exibir(){
             try{
-                const dados = api.get(
+                const dados =  await api.get(
                 '/categorias');
                 this.categorias = dados.data;
-                console.log("dados carregados");
+                console.log("dados carregados", dados);
                 return true;
             }catch(erro){
                 console.log("Erro ao carregar os dados da categoria",erro);
@@ -35,7 +36,7 @@ defineStore('categoria', {
 
         async atualizar(id, categoria){
             try{
-                const dados = api.put(`/categorias/${id}`,{
+                const dados = await api.put(`/categorias/${id}`,{
                     nome: categoria.nome,
                     cor: categoria.cor
                 });
