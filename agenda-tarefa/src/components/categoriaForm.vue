@@ -8,11 +8,20 @@
     
     const dados = ref({
         nome:"",
-        cor:""
+        cor:"#000000"
     });
 
     function salvar(){
         categoriaStore.adicionar(dados.value);
+        limpaCampo();
+        alert("Categoria inserida com sucesso");
+    }
+
+    function limpaCampo(){
+        dados.value = {
+            nome:"",
+            cor:"#000000"
+        };
     }
 </script>
 

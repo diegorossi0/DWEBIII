@@ -18,6 +18,15 @@
     }, {
         "title":"",
         "key":"actions" }];
+
+    function excluir(item){
+        //console.log(item);
+        let resp = confirm(
+        `Você deseja apagar a categoria ${item.nome}?`);
+        if(resp){
+            categoriaStore.apagar(item.idcategoria);
+        }
+    }
 </script>
 
 <template>
