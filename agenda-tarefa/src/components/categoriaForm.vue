@@ -12,9 +12,14 @@
     });
 
     function salvar(){
-        categoriaStore.adicionar(dados.value);
+        if(edicao.value){
+            categoriaStore.atualizar(
+                dados.value.idcategoria, dados.value);
+        }else{
+            categoriaStore.adicionar(dados.value);
+        }
         limpaCampo();
-        alert("Categoria inserida com sucesso");
+        alert("Operação realizada com sucesso");
     }
 
     function limpaCampo(){
@@ -22,6 +27,15 @@
             nome:"",
             cor:"#000000"
         };
+        edicao.value = false;
+    }
+
+    const edicao = ref(false);
+
+    function alterar(item){
+        //console.log(item);
+        dados.value = {...item};
+        edicao.value = true;
     }
 </script>
 
@@ -54,6 +68,8 @@
                 </v-row>
                 <v-row>
                     <v-col class="text-right">
+                        <v-btn variant="outlined" color="deep-orange-darken-1"
+                        @click="limpaCampo">Cancelar</v-btn>
                         <v-btn color="deep-orange-darken-1"
                         @click="salvar">Gravar</v-btn>
                     </v-col>
@@ -61,5 +77,10 @@
             </v-container>
         </v-card-text>
     </v-card>
-    <categoriaTable />
+    <categoriaTable @edit="alterar" />
 </template>
+<style scoped>
+    button{
+        margin: 5px;
+    }
+</style>

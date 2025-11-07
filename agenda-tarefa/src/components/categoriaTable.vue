@@ -1,7 +1,7 @@
 <script setup>
     import { useCategoriaStore } from 
         '@/stores/categoriaStore';
-    import { onMounted } from 'vue';
+    import { onMounted, defineEmits } from 'vue';
 
     const categoriaStore = useCategoriaStore();
 
@@ -27,6 +27,12 @@
             categoriaStore.apagar(item.idcategoria);
         }
     }
+
+    //evento personalizado
+    const emit = defineEmits(['edit']);
+    function alterar(item){
+        emit('edit', item);
+    }
 </script>
 
 <template>
@@ -38,11 +44,17 @@
                     :items="categoriaStore.categorias"
                     :headers="colunas">
                     <template v-slot:item.actions="{ item }">
-                        <v-btn @click="alterar(item)">Alterar</v-btn>
-                        <v-btn @click="excluir(item)">Excluir</v-btn>
+                        <v-btn icon="mdi-pencil" density="comfortable" @click="alterar(item)"></v-btn>
+                        <v-btn icon="mdi-delete" density="comfortable" @click="excluir(item)"></v-btn>
                     </template>
                 </v-data-table>
             </v-card-text>
         </v-card>
     </v-container>
 </template>
+
+<style scoped>
+    button{
+        margin: 0 5px;
+    }
+</style>
