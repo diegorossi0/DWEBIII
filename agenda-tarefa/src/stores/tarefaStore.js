@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import api from "@/plugins/axios";
 
 export const useTarefaStore =
 defineStore('tarefa', {
@@ -8,7 +9,7 @@ defineStore('tarefa', {
     actions: {
         async exibir(){
             try{
-                const dados = api.get(
+                const dados = await api.get(
                 '/tarefas');
                 this.tarefas = dados.data;
                 console.log("dados carregados");
