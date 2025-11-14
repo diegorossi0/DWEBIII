@@ -1,11 +1,20 @@
 <script setup>
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import { useTarefaStore } from 
         '@/stores/tarefaStore';
     import tarefaTable from 
         './tarefaTable.vue';
+    import { useCategoriaStore } 
+    from '@/stores/categoriaStore';
+    import { useCategoriaTarefaStore } 
+    from '@/stores/categoriaTarefaStore';
+    
 
     const tarefaStore = useTarefaStore();
+    const categoriaStore = useCategoriaStore();
+    const categoriaTarefaStore = 
+        useCategoriaTarefaStore();
+
     const dados = ref({
         titulo:"",
         descricao:"",
@@ -14,8 +23,10 @@
         inicio:"",
         fim:""
     });
+    const categorias = ref();
 
     function salvar(){
+        console.log(categorias.value);
         tarefaStore.adicionar(dados.value);
         limpaCampo();
         alert("Operação realizada com sucesso!");
@@ -31,6 +42,10 @@
             fim:""
         }
     }
+
+    onMounted(()=>{
+        categoriaStore.exibir();
+    });
 </script>
 
 <template>
@@ -98,6 +113,20 @@
                         </v-text-field>
                     </v-col>
                 </v-row>
+                
+                <v-row>
+                    <v-col cols="2"></v-col>
+                    <v-col cols="8">
+                        <v-select 
+                        label="Categorias"
+                        :items="categoriaStore.categorias"
+                        multiple item-title="nome" 
+                        item-value="idcategoria"
+                        v-model="categorias">
+                        </v-select>
+                    </v-col>
+                </v-row>
+
                 <v-row>
                     <v-col class="text-right">
                         <v-btn variant="outlined"
