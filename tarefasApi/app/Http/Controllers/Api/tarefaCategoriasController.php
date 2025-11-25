@@ -35,4 +35,33 @@ class tarefaCategoriasController extends Controller
         TarefaCategoria::destroy($id);
         return response()->json(['message' => 'Operação realizada com sucesso']);
     }
+
+    public function 
+    vincularCategorias(Request $request){
+        //Validação dos dados
+        $validated = $request->validate([
+            'idtarefa'=>'required|integer',
+            'categorias'=>'required|array',
+            'categorias.*'=>
+            'integer|exists:categorias,idcategoria'
+        ]);
+
+        $idtarefa = $validated['idtarefa'];
+        $categorias = $validated['categorias'];
+
+        //Deletar as categorias da tarefa
+        TarefaCategoria::where('idtarefa', $idtarefa)
+            ->delete();
+
+        //Inserindo as categorias
+        foreach($categorias as $idcategoria){
+            TarefaCategoria::create([
+                'idtarefa'=>$idtarefa,
+                'idcategoria'=>$idcategoria
+            ]);
+        }
+
+        return response()->json(['message'=>
+        'Categorias cadastradas com sucesso!']);
+    }
 }

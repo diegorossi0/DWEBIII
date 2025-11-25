@@ -14,5 +14,5 @@ class TarefaCategoria extends Model
     ];
 
     protected $table = 'tarefa_categorias';
-    protected $primaryKey = ['idcategoria', 'idtarefa'];
+    protected $primaryKey = 'idtarefacategoria';
 }

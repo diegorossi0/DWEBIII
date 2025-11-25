@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tarefa_categorias', function (Blueprint $table) {
-            // $table->id();
+            $table->id('idtarefacategoria');
             $table->unsignedBigInteger('idtarefa');
             $table->unsignedBigInteger('idcategoria');
             $table->foreign('idtarefa')->references('idtarefa')
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('idcategoria')->references('idcategoria')
                 ->on('categorias')->onDelete('no action')->onUpdate('no action');
             $table->timestamps();
-            $table->primary(['idtarefa', 'idcategoria']);
+            //$table->primary(['idtarefa', 'idcategoria']);
         });
     }
 

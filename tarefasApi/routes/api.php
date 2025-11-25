@@ -24,4 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('categorias', categoriasController::class);
 Route::apiResource('tarefas', tarefasController::class);
 Route::apiResource('categoria_tarefas', tarefaCategoriasController::class);
+Route::post('vincular_categorias', 
+    [tarefaCategoriasController::class, 
+    'vincularCategorias']);
 
