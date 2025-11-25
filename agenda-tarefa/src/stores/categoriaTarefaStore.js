@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import api from '@/plugins/axios';
 
 export const useCategoriaTarefaStore =
 defineStore('categoria_tarefa', {
@@ -8,7 +9,7 @@ defineStore('categoria_tarefa', {
     actions: {
         async exibir(){
             try{
-                const dados = api.get(
+                const dados = await api.get(
                 '/categoria_tarefas');
                 this.categoria_tarefas = dados.data;
                 console.log("dados carregados");
@@ -61,6 +62,19 @@ defineStore('categoria_tarefa', {
                 return true;
             }catch(erro){
                 console.log("Erro ao apagar a categoria_tarefa",erro);
+                return false;
+            }
+        },
+
+        async vincular(idtarefa, categorias){
+            try{
+                await api.post('/vincular_categorias', {
+                    'idtarefa':idtarefa,
+                    'categorias':categorias
+                });
+                return true;
+            }catch(erro){
+                console.log("Erro ao cadastrar categorias",erro);
                 return false;
             }
         }

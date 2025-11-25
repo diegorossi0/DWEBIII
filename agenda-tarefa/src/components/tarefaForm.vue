@@ -25,11 +25,17 @@
     });
     const categorias = ref();
 
-    function salvar(){
+    async function salvar(){
         console.log(categorias.value);
-        tarefaStore.adicionar(dados.value);
-        limpaCampo();
-        alert("Operação realizada com sucesso!");
+        const resp = await tarefaStore.adicionar(dados.value);
+        if(resp!=false){
+            categoriaTarefaStore.vincular(
+                resp.idtarefa, categorias.value);
+            limpaCampo();
+            alert("Operação realizada com sucesso!");
+        }else{
+            alert("Erro ao realizar a operação!");
+        }
     }
 
     function limpaCampo(){
@@ -41,6 +47,8 @@
             inicio:"",
             fim:""
         }
+
+        categorias.value = "";
     }
 
     onMounted(()=>{

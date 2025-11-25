@@ -31,7 +31,7 @@ defineStore('tarefa', {
                 });
 
                 this.tarefas.push(dados.data);
-                return true;
+                return dados.data;
             }catch(erro){
                 console.log("Erro ao inserir a tarefa", erro);
                 return false;
