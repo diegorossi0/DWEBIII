@@ -18,6 +18,12 @@ class Tarefa extends Model
         'fim'
     ];
 
+    public function categorias(){
+        return $this->hasManyThrough(Categoria::class, 
+            TarefaCategoria::class, 'idtarefa', 'idcategoria', 
+            'idtarefa', 'idcategoria');
+    }
+
     protected $table = 'tarefas';
     protected $primaryKey = 'idtarefa';
 }

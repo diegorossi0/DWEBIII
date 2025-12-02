@@ -10,7 +10,7 @@ class tarefasController extends Controller
 {
    public function index()
     {
-        return response()->json(Tarefa::all());
+        return response()->json(Tarefa::with('categorias')->get());
     }
 
     public function store(Request $request)
