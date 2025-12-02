@@ -12,10 +12,17 @@ const colunas = [{
 }, {
     "title":"Status",
     "key":"status"
+}, {
+    "title":"Categorias",
+    "key":"categorias"
 }];
 onMounted(()=>{
     tarefaStore.exibir();
-})
+});
+
+function getColor(cor){
+    return `font-weight:bold; color : ${cor}`;
+}
 </script>
 
 <template>
@@ -28,7 +35,13 @@ onMounted(()=>{
                 <v-data-table 
                     :items="tarefaStore.tarefas"
                     :headers="colunas">
-
+                    <template v-slot:item.categorias="{ item }">
+                        <div v-for="categoria in item.categorias"
+                        :key="categoria.idcategoria" 
+                        :style="getColor(categoria.cor)">
+                            {{ categoria.nome }}
+                        </div>
+                    </template>
                 </v-data-table>
             </v-card-text>
         </v-card>
